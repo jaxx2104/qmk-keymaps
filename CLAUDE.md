@@ -4,7 +4,10 @@ Claude Code向けのプロジェクト固有の指示。
 
 ## プロジェクト概要
 
-QMK/VIAキーボードのキーマップを管理するリポジトリ。
+QMK/VIA/ZMKキーボードのキーマップを管理するリポジトリ。QMKとZMKの混在を許容する。
+Rainy75のみZMK（純正ファームがQMKベースでないため）。ファーム本体・ビルド・書き込みは
+fork [jaxx2104/rainy75-zmk](https://github.com/jaxx2104/rainy75-zmk)、このリポジトリでは
+keymap（`keyboards/wuque_studio/rainy75/zmk/rainy75.keymap`）を管理する。
 
 ## ディレクトリ構造
 
@@ -14,8 +17,10 @@ keyboards/<vendor>/<keyboard>/
 │   ├── keymap.c     # キーマップ定義
 │   ├── config.h     # 設定（TAPPING_TERM等）
 │   └── rules.mk     # ビルドオプション
-└── via/             # VIA設定
-    └── *.layout.json
+├── via/             # VIA設定
+│   └── *.layout.json
+└── zmk/             # ZMKキーマップ（Rainy75。純正がQMK非対応のため）
+    └── rainy75.keymap
 ```
 
 ## キーマップの共通仕様
@@ -24,6 +29,11 @@ keyboards/<vendor>/<keyboard>/
 
 - `CK_EISU`: タップで英数(KC_LNG2)、ホールドでGUI
 - `CK_KANA`: タップでかな(KC_LNG1)、ホールドでAlt
+
+ZMK（Rainy75）での等価表現:
+
+- `CK_EISU` → `&mt LGUI LANG2`（スペース左）
+- `CK_KANA` → `&mt RALT LANG1`（スペース右）
 
 ### レイヤー構成
 

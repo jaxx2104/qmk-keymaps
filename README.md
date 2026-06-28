@@ -1,6 +1,6 @@
 # qmk-keymaps
 
-Personal QMK/VIA keyboard keymaps.
+Personal QMK/VIA/ZMK keyboard keymaps.
 
 ## Keyboards
 
@@ -10,7 +10,7 @@ Personal QMK/VIA keyboard keymaps.
 | KBDfans DZ60RGB v2 | 60% ANSI (arrow) | QMK |
 | NovelKeys NK65 Entry Edition | 65% ANSI | QMK |
 | RAMA WORKS KARA | 60% HHKB | QMK |
-| Wuque Studio Rainy75 | 75% | VIA |
+| Wuque Studio Rainy75 | 75% ANSI | ZMK |
 
 ## Directory Structure
 
@@ -22,8 +22,10 @@ keyboards/
         │   ├── keymap.c
         │   ├── config.h
         │   └── rules.mk
-        └── via/             # VIA layout
-            └── *.layout.json
+        ├── via/             # VIA layout
+        │   └── *.layout.json
+        └── zmk/             # ZMK keymap (Rainy75)
+            └── rainy75.keymap
 ```
 
 ## Features
@@ -51,3 +53,10 @@ qmk compile -kb <vendor>/<keyboard> -km jaxx
 
 1. Open [VIA](https://usevia.app/)
 2. Load layout JSON from `keyboards/<vendor>/<keyboard>/via/`
+
+### ZMK
+
+Rainy75 runs ZMK (its stock firmware is not QMK-based). The keymap is
+`keyboards/wuque_studio/rainy75/zmk/rainy75.keymap`; the firmware is built and flashed
+from the fork [jaxx2104/rainy75-zmk](https://github.com/jaxx2104/rainy75-zmk). See
+[that directory's README](keyboards/wuque_studio/rainy75/zmk/README.md) for details.
