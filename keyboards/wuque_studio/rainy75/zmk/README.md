@@ -28,9 +28,8 @@ keymap).
 - **Layer 1 (`Fn`)** — media keys (Fn+F5–F12), Bluetooth profile select (Fn+F1/F2/F3),
   USB/BLE output toggle (Fn+F4), RGB controls, and ZMK Studio unlock (Fn+Esc).
 
-## `../via/`
+## Matrix reference
 
-[`../via/rainy_75.layout.json`](../via/rainy_75.layout.json) is the original stock VIA
-layout. It is kept as the authoritative **matrix reference** — it is how the ANSI Enter
-and bottom-row matrix positions were pinned down — but VIA is no longer used for this
-board.
+The ANSI Enter (`RC(3,13)`) and bottom-row matrix positions were pinned down from the
+stock VIA layout; the details live in scholzri/rainy75-zmk#1 and in the fork's
+`rainy75.dts`.

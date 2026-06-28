@@ -1,6 +1,6 @@
 # qmk-keymaps
 
-Personal QMK/VIA/ZMK keyboard keymaps.
+Personal QMK/ZMK keyboard keymaps.
 
 ## Keyboards
 
@@ -22,8 +22,6 @@ keyboards/
         │   ├── keymap.c
         │   ├── config.h
         │   └── rules.mk
-        ├── via/             # VIA layout
-        │   └── *.layout.json
         └── zmk/             # ZMK keymap (Rainy75)
             └── rainy75.keymap
 ```
@@ -48,11 +46,6 @@ cp -r keyboards/<vendor>/<keyboard>/keymaps/jaxx \
 # Build firmware
 qmk compile -kb <vendor>/<keyboard> -km jaxx
 ```
-
-### VIA
-
-1. Open [VIA](https://usevia.app/)
-2. Load layout JSON from `keyboards/<vendor>/<keyboard>/via/`
 
 ### ZMK
 
