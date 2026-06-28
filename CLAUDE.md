@@ -45,6 +45,36 @@ ZMK（Rainy75）での等価表現:
 #define PERMISSIVE_HOLD
 ```
 
+## Rainy75（ZMK）の編集・ビルド・書き込み
+
+Rainy75 は QMK ではなく **ZMK**（純正が Evision/Telink の独自ファーム）。他ボードと手順が違う。
+
+- **keymap の正本**: `keyboards/wuque_studio/rainy75/zmk/rainy75.keymap`
+- **ファームのビルド/書き込み**: 別クローン `~/repos/github.com/scholzri/rainy75-zmk`
+  （fork: `jaxx2104/rainy75-zmk`）で行い、その `zmk/boards/rainy75/rainy75.keymap` を
+  qmk-keymaps 側と**バイト一致**で同期する（両方に同じ変更を当てる）。
+
+### ⚠️ ブランチ（最重要）
+
+ビルド/書き込みは必ず **`main`** で行う（`main` = 個人最終 keymap = qmk-keymaps のコピー）。
+クローンは upstream PR 用の **`fix/buildable`**（原状の旧 keymap）に置かれていることがあり、
+そのままビルドすると**間違ったファーム**が出る → 先に `git checkout main`。
+個人 keymap 変更は `main`（＋qmk-keymaps）のみ。**`fix/buildable` には触れない**。
+
+### ビルド → 検証 → 書き込み
+
+```bash
+cd ~/repos/github.com/scholzri/rainy75-zmk && git checkout main
+export PATH="$(pwd)/toolchain/protoc/bin:$PATH" && ./build.sh -pa
+# 焼く前に build/zephyr/zephyr.dts を検証（keycode = 0x07<<16|usage 例: LCTRL=0x700e0, CapsLock=0x70039）
+python3 reverse/tools/restore_original.py --yes --no-verify --port /dev/ttyACM0 build/combined.bin
+```
+
+- ZMK 稼働中の更新なので bridge 不要。verify は usbipd 経由で必ずタイムアウト → **`--no-verify` 必須**。
+- usbipd attach が `Device in error state`／記述子失敗ゴースト → **USB 抜き差し（別ポート）**で解消
+  （初回や別ポートでは Windows 管理者 `usbipd bind` が一度要ることあり）。
+- 完了後、qmk-keymaps を commit／クローン `main` を commit & push（fork）して両者を同期。
+
 ## 新しいキーボードの追加手順
 
 1. QMK公式のディレクトリ構造に従ってベンダー名/キーボード名でディレクトリ作成
